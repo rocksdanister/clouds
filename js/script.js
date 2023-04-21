@@ -22,10 +22,12 @@ async function init() {
     uniforms: {
       u_time: { value: 0, type: "f" },
       u_fog: { value: true, type: "b" },
-      u_speed: { value: 0.5, type: "f" },
+      u_speed: { value: 0.25, type: "f" },
       u_scale: { value: 0.61, type: "f" },
+      u_scale2: { value: 0.57, type: "f" },
+      u_iters: { value: 5, type: "i" },
       u_color1: { value: new THREE.Color("#87b0b7"), type: "c" },
-      u_fog_color: { value: new THREE.Color(0.06, 0.11, 0.11), type: "c" },
+      u_fog_color: { value: new THREE.Color("#0f1c1c"), type: "c" },
       u_brightness: { value: 1, type: "f" },
       u_mouse: { value: new THREE.Vector4(), type: "v4" },
       u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight), type: "v2" },
@@ -123,7 +125,9 @@ function datUI() {
   addColor(cloud, material.uniforms.u_color1, "Base");
   addColor(cloud, material.uniforms.u_fog_color, "Fog");
   cloud.add(material.uniforms.u_scale, "value", 0, 2, 0.01).name("Size");
-  cloud.add(material.uniforms.u_speed, "value", 0.1, 5, 0.01).name("Speed");
+  cloud.add(material.uniforms.u_scale2, "value", 0, 2, 0.01).name("Size2");
+  cloud.add(material.uniforms.u_iters, "value", 0, 10, 1).name("Iter");
+  cloud.add(material.uniforms.u_speed, "value", 0, 5, 0.01).name("Speed");
   cloud.add(material.uniforms.u_brightness, "value", 0, 1, 0.01).name("Brightness");
   //non-uniforms
   //cloud.add(settings, "parallaxVal", 0, 5, 1).name("Parallax");
@@ -134,7 +138,7 @@ function datUI() {
   let tempScale = { value: settings.scale }; //don't update global value
   perf
     .add(tempScale, "value", 0.1, 2, 0.01)
-    .name("Scale")
+    .name("Display")
     .onChange(function () {
       setScale(tempScale.value);
     });

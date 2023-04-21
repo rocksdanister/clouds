@@ -13,6 +13,8 @@ uniform vec2 u_resolution;
 uniform float u_brightness;
 uniform bool u_fog;
 uniform float u_scale;
+uniform float u_scale2;
+uniform int u_iters;
 uniform vec3 u_color1;
 uniform vec3 u_fog_color;
 uniform float u_speed;
@@ -49,10 +51,10 @@ vec2 map(vec3 p) {
     float z = 1.;
     float trk = 1.;
     float dspAmp = 0.1 + prm1 * 0.2;
-    for(int i = 0; i < 5; i++) {
+    for(int i = 0; i < u_iters; i++) {
         p += sin(p.zxy * 0.75 * trk + time() * trk * .8) * dspAmp;
         d -= abs(dot(cos(p), sin(p.yzx)) * z);
-        z *= 0.57;
+        z *= u_scale2;
         trk *= 1.4;
         p = p * m3;
     }
