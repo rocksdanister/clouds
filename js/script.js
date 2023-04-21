@@ -3,7 +3,7 @@ let clock = new THREE.Clock();
 const gui = new dat.GUI();
 
 let scene, camera, renderer, material;
-let settings = { fps: 24, scale: 0.25, parallaxVal: 1, click: false };
+let settings = { fps: 24, scale: 0.25, parallaxVal: 0, click: false };
 
 //custom events
 const sceneLoadedEvent = new Event("sceneLoaded");
@@ -25,6 +25,7 @@ async function init() {
       u_speed: { value: 0.5, type: "f" },
       u_scale: { value: 0.61, type: "f" },
       u_color1: { value: new THREE.Color("#87b0b7"), type: "c" },
+      u_fog_color: { value: new THREE.Color(0.06, 0.11, 0.11), type: "c" },
       u_brightness: { value: 1, type: "f" },
       u_mouse: { value: new THREE.Vector4(), type: "v4" },
       u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight), type: "v2" },
@@ -120,12 +121,13 @@ function datUI() {
   cloud.open();
 
   addColor(cloud, material.uniforms.u_color1, "Base");
-  cloud.add(material.uniforms.u_fog, "value").name("Fog");
-  cloud.add(material.uniforms.u_scale, "value", 0, 2, 0.01).name("P");
+  addColor(cloud, material.uniforms.u_fog_color, "Fog");
+  cloud.add(material.uniforms.u_scale, "value", 0, 2, 0.01).name("Size");
   cloud.add(material.uniforms.u_speed, "value", 0.1, 5, 0.01).name("Speed");
   cloud.add(material.uniforms.u_brightness, "value", 0, 1, 0.01).name("Brightness");
   //non-uniforms
-  cloud.add(settings, "parallaxVal", 0, 5, 1).name("Parallax");
+  //cloud.add(settings, "parallaxVal", 0, 5, 1).name("Parallax");
+  cloud.add(material.uniforms.u_fog, "value").name("Show Fog");
   cloud.add(settings, "click").name("Mouse Click");
 
   perf.add(settings, "fps", 18, 60, 6).name("FPS");
