@@ -22,7 +22,7 @@ async function init() {
     uniforms: {
       u_time: { value: 0, type: "f" },
       u_fog: { value: true, type: "b" },
-      u_speed: { value: 0.1, type: "f" },
+      u_speed: { value: 0.5, type: "f" },
       u_scale: { value: 0.61, type: "f" },
       u_color1: { value: new THREE.Color("#87b0b7"), type: "c" },
       u_brightness: { value: 1, type: "f" },
