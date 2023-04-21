@@ -3,7 +3,7 @@ let clock = new THREE.Clock();
 const gui = new dat.GUI();
 
 let scene, camera, renderer, material;
-let settings = { fps: 24, scale: 0.25, parallaxVal: 1, click: true };
+let settings = { fps: 24, scale: 0.25, parallaxVal: 1, click: false };
 
 //custom events
 const sceneLoadedEvent = new Event("sceneLoaded");
@@ -22,7 +22,7 @@ async function init() {
     uniforms: {
       u_time: { value: 0, type: "f" },
       u_fog: { value: true, type: "b" },
-      u_speed: { value: 10, type: "f" },
+      u_speed: { value: 0.1, type: "f" },
       u_scale: { value: 0.61, type: "f" },
       u_color1: { value: new THREE.Color("#87b0b7"), type: "c" },
       u_brightness: { value: 1, type: "f" },
@@ -122,6 +122,7 @@ function datUI() {
   addColor(cloud, material.uniforms.u_color1, "Base");
   cloud.add(material.uniforms.u_fog, "value").name("Fog");
   cloud.add(material.uniforms.u_scale, "value", 0, 2, 0.01).name("P");
+  cloud.add(material.uniforms.u_speed, "value", 0.1, 5, 0.01).name("Speed");
   cloud.add(material.uniforms.u_brightness, "value", 0, 1, 0.01).name("Brightness");
   //non-uniforms
   cloud.add(settings, "parallaxVal", 0, 5, 1).name("Parallax");
