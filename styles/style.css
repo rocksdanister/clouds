@@ -1,0 +1,12 @@
+body {
+  background-color: #000;
+  margin: 0px;
+  overflow: hidden;
+}
+
+#container {
+  transform: scale(1.09);
+  z-index: -10;
+  opacity: 1;
+}
+
