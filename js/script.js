@@ -110,7 +110,42 @@ init();
 //lively api
 //docs: https://github.com/rocksdanister/lively/wiki/Web-Guide-IV-:-Interaction
 function livelyPropertyListener(name, val) {
-  //todo
+  switch (name) {
+    case "scale1":
+      material.uniforms.u_scale.value = val;
+      break;
+    case "scale2":
+      material.uniforms.u_scale2.value = val;
+      break;
+    case "iter":
+      material.uniforms.u_iters.value = val;
+      break;
+    case "brightness":
+      material.uniforms.u_brightness.value = val;
+      break;
+    case "baseColor":
+      material.uniforms.u_color1.value = new THREE.Color(val);
+      break;
+    case "fogColor":
+      material.uniforms.u_fog_color.value = new THREE.Color(val);
+      break;
+    case "mouseClick":
+      settings.click = val;
+      break;
+    case "fog":
+      material.uniforms.u_fog.value = val;
+      break;
+    case "fpsLock":
+      settings.fps = val ? 24 : 60;
+      break;
+    case "displayScaling":
+      setScale(val);
+      break;
+    case "debug":
+      if (val) gui.show();
+      else gui.hide();
+      break;
+  }
 }
 
 //web
@@ -122,13 +157,13 @@ function datUI() {
   perf.open();
   cloud.open();
 
-  addColor(cloud, material.uniforms.u_color1, "Base");
-  addColor(cloud, material.uniforms.u_fog_color, "Fog");
-  cloud.add(material.uniforms.u_scale, "value", 0, 2, 0.01).name("Size");
+  cloud.add(material.uniforms.u_scale, "value", 0, 2, 0.01).name("Size1");
   cloud.add(material.uniforms.u_scale2, "value", 0, 2, 0.01).name("Size2");
   cloud.add(material.uniforms.u_iters, "value", 0, 10, 1).name("Iter");
   cloud.add(material.uniforms.u_speed, "value", 0, 5, 0.01).name("Speed");
   cloud.add(material.uniforms.u_brightness, "value", 0, 1, 0.01).name("Brightness");
+  addColor(cloud, material.uniforms.u_color1, "Base");
+  addColor(cloud, material.uniforms.u_fog_color, "Fog");
   //non-uniforms
   //cloud.add(settings, "parallaxVal", 0, 5, 1).name("Parallax");
   cloud.add(material.uniforms.u_fog, "value").name("Show Fog");
@@ -163,7 +198,7 @@ function datUI() {
       "source"
     )
     .name("Source Code");
-  //gui.close();
+  gui.close();
 }
 
 //datgui threejs color menu
