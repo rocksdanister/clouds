@@ -1,0 +1,79 @@
+{
+  "label1": {
+    "type": "label",
+    "value": "Simulation"
+  },
+  "scale1": {
+    "max": 2,
+    "min": 0,
+    "step": 0.01,
+    "text": "Size1",
+    "type": "slider",
+    "value": 0.61
+  },
+  "scale2": {
+    "max": 2,
+    "min": 0,
+    "step": 0.01,
+    "text": "Size2",
+    "type": "slider",
+    "value": 0.57
+  },
+  "iter": {
+    "max": 10,
+    "min": 0,
+    "text": "Iter",
+    "type": "slider",
+    "value": 5
+  },
+  "brightness": {
+    "max": 1,
+    "min": 0,
+    "step": 0.01,
+    "text": "Brightness",
+    "type": "slider",
+    "value": 1
+  },
+  "baseColor": {
+    "text": "Base Color",
+    "type": "color",
+    "value": "#87b0b7"
+  },
+  "fogColor": {
+    "text": "Fog Color",
+    "type": "color",
+    "value": "#0f1c1c"
+  },
+  "fog": {
+    "type": "checkbox",
+    "value": true,
+    "text": "Show Fog"
+  },
+  "mouseClick": {
+    "type": "checkbox",
+    "value": false,
+    "text": "Mouse Click"
+  },
+  "label2": {
+    "type": "label",
+    "value": "Performance"
+  },
+  "displayScaling": {
+    "max": 1,
+    "min": 0.1,
+    "step": 0.01,
+    "text": "Scaling",
+    "type": "slider",
+    "value": 0.25
+  },
+  "fpsLock": {
+    "type": "checkbox",
+    "value": true,
+    "text": "24FPS Lock"
+  },
+  "debug": {
+    "type": "checkbox",
+    "value": false,
+    "text": "Debug"
+  }
+}
