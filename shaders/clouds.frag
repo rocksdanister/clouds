@@ -35,7 +35,7 @@ vec2 disp(float t) {
 }
 
 float time() {
-    return 1000. + u_time / u_speed;
+    return 1000. + u_time * u_speed;
 }
 
 vec2 map(vec3 p) {
