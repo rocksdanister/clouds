@@ -34,8 +34,8 @@
     "type": "slider",
     "value": 1
   },
-  "baseColor": {
-    "text": "Base Color",
+  "densityColor": {
+    "text": "Density Color",
     "type": "color",
     "value": "#87b0b7"
   },
