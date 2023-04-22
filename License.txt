@@ -1,4 +1,7 @@
-todo
+Clouds by Rocksdanister licensed under
+Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+Source:
+https://github.com/rocksdanister/clouds
 
 **********************************************************************************************
 

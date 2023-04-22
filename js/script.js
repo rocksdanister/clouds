@@ -123,7 +123,7 @@ function livelyPropertyListener(name, val) {
     case "brightness":
       material.uniforms.u_brightness.value = val;
       break;
-    case "baseColor":
+    case "densityColor":
       material.uniforms.u_color1.value = new THREE.Color(val);
       break;
     case "fogColor":
@@ -162,7 +162,7 @@ function datUI() {
   cloud.add(material.uniforms.u_iters, "value", 0, 10, 1).name("Iter");
   cloud.add(material.uniforms.u_speed, "value", 0, 5, 0.01).name("Speed");
   cloud.add(material.uniforms.u_brightness, "value", 0, 1, 0.01).name("Brightness");
-  addColor(cloud, material.uniforms.u_color1, "Base");
+  addColor(cloud, material.uniforms.u_color1, "Density");
   addColor(cloud, material.uniforms.u_fog_color, "Fog");
   //non-uniforms
   //cloud.add(settings, "parallaxVal", 0, 5, 1).name("Parallax");
