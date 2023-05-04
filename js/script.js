@@ -3,7 +3,12 @@ let clock = new THREE.Clock();
 const gui = new dat.GUI();
 
 let scene, camera, renderer, material;
-let settings = { fps: 24, scale: 0.25, parallaxVal: 0, click: false };
+let settings = { fps: 24, scale: 0.25, parallaxVal: 0, mouse: true };
+//mouse drag
+let startX,
+  startY,
+  delta = 10,
+  isDrag = false;
 
 //custom events
 const sceneLoadedEvent = new Event("sceneLoaded");
@@ -40,7 +45,8 @@ async function init() {
           }
         `,
   });
-  this.onmousedown = mouseClick;
+  this.onmouseup = mouseUp;
+  this.onmousedown = mouseDown;
   this.onmousemove = mouseMove;
 
   material.fragmentShader = await (await fetch("shaders/clouds.frag")).text();
@@ -56,22 +62,35 @@ async function init() {
   document.dispatchEvent(sceneLoadedEvent);
 }
 
-function mouseClick(e) {
-  if (!settings.click) return;
+function mouseDown(e) {
+  isDrag = true;
+  startX = e.pageX;
+  startY = e.pageY;
+}
 
-  material.uniforms.u_mouse.value.x = e.pageX * settings.scale;
-  material.uniforms.u_mouse.value.y = e.pageY * settings.scale;
-  material.uniforms.u_mouse.value.z = 1;
-  material.uniforms.u_mouse.value.w = 1;
+function mouseUp(e) {
+  isDrag = false;
 }
 
 function mouseMove(e) {
-  if (settings.parallaxVal == 0) return;
+  if (settings.mouse) {
+    if ((Math.abs(e.pageX - startX) < delta && Math.abs(e.pageY - startY) < delta) || !isDrag) {
+      //click
+    } else {
+      //mouse pixel coords. xy: current (if MLB down), zw: click
+      material.uniforms.u_mouse.value.x = e.pageX * settings.scale;
+      material.uniforms.u_mouse.value.y = e.pageY * settings.scale;
+      material.uniforms.u_mouse.value.z = 1;
+      material.uniforms.u_mouse.value.w = 1;
+    }
+  }
 
-  const x = (window.innerWidth - e.pageX * settings.parallaxVal) / 90;
-  const y = (window.innerHeight - e.pageY * settings.parallaxVal) / 90;
+  if (settings.parallaxVal != 0) {
+    const x = (window.innerWidth - e.pageX * settings.parallaxVal) / 90;
+    const y = (window.innerHeight - e.pageY * settings.parallaxVal) / 90;
 
-  container.style.transform = `translateX(${x}px) translateY(${y}px) scale(1.09)`;
+    container.style.transform = `translateX(${x}px) translateY(${y}px) scale(1.09)`;
+  }
 }
 
 function setScale(value) {
@@ -130,7 +149,7 @@ function livelyPropertyListener(name, val) {
       material.uniforms.u_fog_color.value = new THREE.Color(val);
       break;
     case "mouseClick":
-      settings.click = val;
+      settings.mouse = val;
       break;
     case "fog":
       material.uniforms.u_fog.value = val;
@@ -167,7 +186,7 @@ function datUI() {
   //non-uniforms
   //cloud.add(settings, "parallaxVal", 0, 5, 1).name("Parallax");
   cloud.add(material.uniforms.u_fog, "value").name("Show Fog");
-  cloud.add(settings, "click").name("Mouse Click");
+  cloud.add(settings, "mouse").name("Mouse");
 
   perf.add(settings, "fps", 18, 60, 6).name("FPS");
   let tempScale = { value: settings.scale }; //don't update global value
